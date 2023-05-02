@@ -8,7 +8,7 @@ const PORT= process.env.PORT || 3000;
 
 app.use(cors());
 
-app.get("/:query", torrents.torrents);
+app.get("/:query/:category", torrents.torrents);
 app.listen(PORT, function () {
       console.log(`Example app listening on port ${PORT}!`);
       });
