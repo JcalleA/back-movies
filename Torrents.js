@@ -17,40 +17,27 @@ const axios = require("axios")
 
 
 exports.torrents = async (req, res) => {
-    const query = req.params.query;
-    const category = req.params.category;
+   // const query = req.params.query;
+   // const category = req.params.category;
     try {
         
         const tmdb = await axios.get(baseUrl+discover+keyApi+"&page=1");
-        console.log(tmdb);
+    
         let resultado =[];
-        let n=1;
+                
 
         tmdb.data.results.forEach(async (item) => {
+            let titulo = item.title
+            let itemUp = item;
 
+            let torrents = await TorrentSearchApi.search(titulo, "Video", 2);
+            itemUp.torrent=torrents[0];
 
-            let torrents = await TorrentSearchApi.search(item.title, "Video", 1);
-            let respuesta =torrents[0].title
+            resultado.push(itemUp);
             
-            if(respuesta == 'No results returned'){
-                const listaObj= {provider:"ThePirateBay",id:"55131929",title:"The Matrix Resurrections (2021) [1080p] [WEBRip]",
-                time:"Wed, 22 Dec 2021 13:59:13 GMT",seeds:432,peers:42,size:"2.9 GB",magnet:"magnet:?xt=urn:btih:CF109D8D0CFE46BFE7AC5378B587D27B71DD87A8&dn=The%20Matrix%20Resurrections%20(2021)%20%5B1080p%5D%20%5BWEBRip%5D&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2920%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.pirateparty.gr%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.cyberia.is%3A6969%2Fannounce",numFiles:8,status:"vip",category:"207",imdb:""}
-                item.torrent=listaObj
-                resultado.push(item);
-                console.log("item :: "+n);
-                n=n+1;
-
-            }else{
-
-            
-            item.torrent=torrents[0]
-            resultado.push(item);
-            console.log("item :: "+n);
-            n=n+1;
             
 
-            }
-            
+            })
             
             // if (item.imdb == '') {
 
@@ -66,7 +53,7 @@ exports.torrents = async (req, res) => {
             //     item.tmdb = datos.data.movie_results[0];
             //     resultado.push(item);
             // }
-        })
+        
         return (
             res.json(resultado))
     } catch {
