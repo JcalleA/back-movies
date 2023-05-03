@@ -17,27 +17,27 @@ const axios = require("axios")
 
 
 exports.torrents = async (req, res) => {
-   const titulo = req.params.titulo;
-   // const category = req.params.category;
-    
-    const torrent = await  TorrentSearchApi.search(titulo,"Video",1)
+    const titulo = req.params.titulo;
+    // const category = req.params.category;
+
+    const torrent = await TorrentSearchApi.search(titulo, "Video", 1)
     try {
-            
-            // if (item.imdb == '') {
 
-            //     let external = baseUrl + search + keyApi + consulta+item.title;
-            //     console.log("obteniendo datos:  " + external);
-            //     // let datos = await axios.get(external);
-            //     // item.tmdb = datos.data.results[0];
-            //     resultado.push(item);
+        // if (item.imdb == '') {
 
-            // } else {
-            //     let external = baseUrl + "/find/" + item.imdb + keyApi + "&external_source=imdb_id";
-            //     let datos = await axios.get(external);
-            //     item.tmdb = datos.data.movie_results[0];
-            //     resultado.push(item);
-            // }
-        
+        //     let external = baseUrl + search + keyApi + consulta+item.title;
+        //     console.log("obteniendo datos:  " + external);
+        //     // let datos = await axios.get(external);
+        //     // item.tmdb = datos.data.results[0];
+        //     resultado.push(item);
+
+        // } else {
+        //     let external = baseUrl + "/find/" + item.imdb + keyApi + "&external_source=imdb_id";
+        //     let datos = await axios.get(external);
+        //     item.tmdb = datos.data.movie_results[0];
+        //     resultado.push(item);
+        // }
+
         return (
             res.json(torrent))
     } catch {
