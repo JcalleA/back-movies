@@ -17,27 +17,11 @@ const axios = require("axios")
 
 
 exports.torrents = async (req, res) => {
-   // const query = req.params.query;
+   const titulo = req.params.titulo;
    // const category = req.params.category;
-    try {
-        
-        const tmdb = await axios.get(baseUrl+discover+keyApi+"&page=1");
     
-        let resultado =[];
-                
-
-        tmdb.data.results.forEach(async (item) => {
-            let titulo = item.title
-            let itemUp = item;
-
-            let torrents = await TorrentSearchApi.search(titulo, "Video", 2);
-            itemUp.torrent=torrents[0];
-
-            resultado.push(itemUp);
-            
-            
-
-            })
+    const torrent = await  TorrentSearchApi.search(titulo,"Video",1)
+    try {
             
             // if (item.imdb == '') {
 
@@ -55,7 +39,7 @@ exports.torrents = async (req, res) => {
             // }
         
         return (
-            res.json(resultado))
+            res.json(torrent))
     } catch {
         return (res.json({ error: "error" }))
     }
