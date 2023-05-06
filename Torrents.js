@@ -1,5 +1,6 @@
 const TorrentSearchApi = require('torrent-search-api');
 const t6 = 'ThePirateBay';  //categories: ['All','Audio','Video','Applications','Games','Porn','Other','Top100']
+const t1 = "Torrent9";
 const keyApi = '?api_key=01f8864c658ff852bda51d8e300d91de';
 const baseUrl = 'https://api.themoviedb.org/3';
 const imagePath = 'https://image.tmdb.org/t/p/original';
@@ -11,16 +12,18 @@ const yts = "https://yts.mx/api/v2/list_movies.json";
 const consulta2 = "?query_term=";
 const uri = "https://back-movies-jwyg.onrender.com/1080%202023/Video";
 const external = baseUrl + "/find/tt10151854" + keyApi + "&external_source=imdb_id";
-TorrentSearchApi.enableProvider(t6);
 const axios = require("axios")
 // Search '1080' in 'Movies' category and limit to 20 results
 
 
 exports.torrents = async (req, res) => {
     const titulo = req.params.titulo;
-    // const category = req.params.category;
+    const category = req.params.category;
+    const provider= req.params.provider;
+    TorrentSearchApi.enableProvider(provider);
+    
 
-    const torrent = await TorrentSearchApi.search(titulo, "Video", 1)
+    const torrent = await TorrentSearchApi.search(titulo,category, 1)
     try {
 
         // if (item.imdb == '') {
