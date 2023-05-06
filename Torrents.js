@@ -14,9 +14,11 @@ const uri = "https://back-movies-jwyg.onrender.com/1080%202023/Video";
 const external = baseUrl + "/find/tt10151854" + keyApi + "&external_source=imdb_id";
 const axios = require("axios")
 // Search '1080' in 'Movies' category and limit to 20 results
-
+const provi = TorrentSearchApi.getProviders();
+console.log(provi);
 
 exports.torrents = async (req, res) => {
+    TorrentSearchApi.disableAllProviders();
     const titulo = req.params.titulo;
     const category = req.params.category;
     const provider= req.params.provider;
